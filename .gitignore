@@ -9,3 +9,6 @@ hosts.test.yml
 # Certificate copies fetched by the playbook (public, but regenerated
 # on every run; keep the tree clean).
 certs/
+
+# Temporary files
+tmp/

@@ -88,15 +88,7 @@ address.
 - `docs/restore.md` — restore a dump
 - `docs/ci-and-registry.md` — Actions runner, container registry,
   mirrored actions, access from job containers
-- `docs/development-notes.md` — traps and patterns for changing the
-  playbook or templates
+- `CONTRIBUTING.md` — changing the recipe: where settings live, the
+  edit-verify-apply loop, lint, repo scripts
 - `repo-templates/build-multiarch.yml` — workflow template to copy into
   new repositories
-
-## Editing configuration
-
-Per-deployment values live in `hosts.yml`; tracked defaults live in
-`group_vars/all.yml` (image pins, limits, target paths). All Forgejo
-application settings live in `templates/kube/forgejo.yaml.j2` as
-`FORGEJO__*` variables. Edit, then re-run the playbook; it re-renders
-and restarts the affected pod.

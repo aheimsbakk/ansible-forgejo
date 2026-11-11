@@ -4,7 +4,7 @@ Restores an instance from a dump made by `/opt/forgejo/backup.sh`. Run
 the steps on the target over SSH. Commands use `forgejo.local` as the
 instance name; substitute your `lan_name` if you set a different one.
 
-Forgejo 16.0.5 has no restore command, and its dumps contain no
+Forgejo 17.0.1 has no restore command, and its dumps contain no
 `restore.sh`. A dump holds four top-level entries. Restoring is a file
 copy:
 
@@ -131,4 +131,6 @@ of times, so `sqlite3` rejects it with `no such function: unistr`.
 The procedure was drilled end-to-end on a fresh install of this recipe:
 backup, restore (steps 1–5), the three checks, and fallback removal,
 all on the same machine. It has not been run against the first
-target's live data dir.
+target's live data dir. The drill ran on Forgejo 16.0.5; after a
+version bump, re-check the step 7 token behaviour on the running
+version.

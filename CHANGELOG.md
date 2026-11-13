@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.2] - 2026-11-13
+
+- **why:** A job image tagged `latest` kept running an old local copy after a new push, so jobs ran stale code with no error.
+- **model:** kompis/qwen3.8-flash-next-iq3_s
+- **tags:** runner, ci, job-images
+
+### Fixed
+
+- `templates/runner-config.yaml.j2`: `container.force_pull` now `true`, so every job pulls its image again and a re-pushed tag reaches the next job
+- `tasks/runner.yml`: the mitigation check counts six markers, now including `force_pull: true`, and names it in the failure message
+- `docs/ci-and-registry.md`, `docs/development-notes.md`: record why the setting must stay on
+
 ## [0.2.1] - 2026-11-13
 
 - **why:** The target is a small host; compressed RAM swap adds memory headroom for containers.

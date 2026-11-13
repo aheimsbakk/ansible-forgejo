@@ -96,7 +96,7 @@
 
 - name: Read the runner job configuration for verification
   ansible.builtin.command: >-
-    grep -cE '^  capacity: {{ runner_capacity }}$|add-host={{ lan_name }}:|NODE_EXTRA_CA_CERTS:|^  valid_volumes:|^  env_file: ""$'
+    grep -cE '^  capacity: {{ runner_capacity }}$|add-host={{ lan_name }}:|NODE_EXTRA_CA_CERTS:|^  valid_volumes:|^  env_file: ""$|^  force_pull: true$'
     {{ runner_dir }}/config.yaml
   changed_when: false
   check_mode: false
@@ -104,11 +104,11 @@
 
 - name: Assert the job configuration carries every mitigation
   ansible.builtin.assert:
-    that: runner_cfg_check.stdout == '5'
+    that: runner_cfg_check.stdout == '6'
     fail_msg: >-
       {{ runner_dir }}/config.yaml is missing one of the required
       settings (capacity, name pin, CA variables, valid_volumes,
-      env_file off); the template did not apply
+      env_file off, force_pull on); the template did not apply
 
 - name: Assert the sample job environment entries are gone
   ansible.builtin.command: "grep -q A_TEST_ENV_NAME {{ runner_dir }}/config.yaml"

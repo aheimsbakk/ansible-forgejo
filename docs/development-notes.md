@@ -136,6 +136,14 @@ tasks encode the fixes. Grouped by area.
 - The default job image label lives in `/srv/forgejo-runner/.runner`,
   not in `config.yaml`. The current pin `node:24-bookworm` has git and
   node; check support status before moving it.
+- `force_pull` stays `true`. The runner pulls a job image only when the
+  tag is missing locally, and the job images this instance produces
+  carry a mutable tag (`IMAGE_TAG: latest` in
+  `repo-templates/build-multiarch.yml`). With `force_pull: false` a
+  re-pushed `:latest` never reaches a job: the stale local copy starts
+  again, with no error and no log about it. `runner.yml` asserts the
+  setting is on; the per-job pull is what lets `cleanup.sh` delete
+  unused job images safely.
 - Inside jobs, `<hostname>.local` is unreliable over DNS (nothing serves
   `.local`; systemd-resolved answers the machine's own name
   synthetically with every address). The `--add-host=` entry in the

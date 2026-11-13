@@ -225,8 +225,13 @@ container:
   # Example urls: unix:///run/docker.socket or ssh://user@host
   # The specified socket is mounted within the job container at /var/run/docker.sock
   docker_host: "-"
-  # Pull docker image(s) even if already present
-  force_pull: false
+  # Pull docker image(s) even if already present. Kept true on purpose:
+  # job images carry mutable tags (`IMAGE_TAG: latest` in
+  # repo-templates/build-multiarch.yml), and with a local copy already
+  # present the runner would keep starting the stale image after a new
+  # push. The cost is one registry check per job; cleanup.sh prunes what
+  # the jobs leave behind.
+  force_pull: true
   # Rebuild local docker image(s) even if already present
   force_rebuild: false
 

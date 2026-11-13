@@ -46,6 +46,10 @@ mitigations; keep them when editing templates:
 - The runner and its job containers pin the instance certificate. The
   runner's `insecure` option stays `false`: verification is never
   turned off.
+- Job images are pulled before every job (`force_pull: true` in
+  `/srv/forgejo-runner/config.yaml`): a mutable tag such as `:latest`
+  picks up the newest push instead of a stale local copy. Flip it back
+  to `false` and re-pushed job images stop reaching jobs.
 - Recommended but not configured: disable or gate workflows from fork
   pull requests. With registration disabled only admin-created accounts
   can push, so exposure is limited to trusted users — until you change
@@ -84,7 +88,8 @@ a later job can run inside it.
   `tail -f /dev/null` and picks the shell by probing, so a bash-free
   image runs steps with `sh -e`. Pin job images by tag rather than
   digest: the registry reports a `Docker-Content-Digest` that differs
-  from the local image id.
+  from the local image id. A re-pushed tag reaches the next job,
+  because the runner pulls again instead of reusing the local copy.
 
 ## Access from job containers
 

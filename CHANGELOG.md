@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.1] - 2026-11-13
+
+- **why:** The target is a small host; compressed RAM swap adds memory headroom for containers.
+- **model:** kompis/qwen3.8-flash-next-iq3_s
+- **tags:** packages, base, memory
+
+### Added
+
+- `tasks/base.yml`: install `systemd-zram-generator` with the engine and discovery packages
+
 ## [0.2.0] - 2026-11-11
 
 - **why:** The pinned Forgejo 16.0 line reached end of life on 2026-10-29, so the pins move to the supported 17.0 line and the matching runner.

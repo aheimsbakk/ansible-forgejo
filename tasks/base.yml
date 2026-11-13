@@ -48,6 +48,7 @@
       - catatonit # kube play builds the local pause image with it
       - libnss-mdns
       - avahi-daemon
+      - systemd-zram-generator # compressed RAM swap stretches memory on small hosts
 
 - name: Enable the Docker-compatible engine socket
   ansible.builtin.systemd:
